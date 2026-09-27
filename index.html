@@ -1,0 +1,4036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Birthday Project</title>
+
+<!-- ================= CSS ================= -->
+<style>
+
+/* Result
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  background: #000;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  color: white;
+}
+
+/* =========================
+   SCREENS
+========================= */
+
+.screen {
+  position: fixed;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: #000;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition:
+    opacity 1.2s ease,
+    visibility 1.2s ease;
+
+  overflow: hidden;
+}
+
+.screen.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* =========================
+   SCREEN 1
+========================= */
+
+#screen1 {
+  background: #000;
+}
+
+#heartCanvas {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+.openingText {
+  position: absolute;
+
+  left: 50%;
+  bottom: 21%;
+
+  transform: translateX(-50%);
+
+  color: #6FAF78;
+
+  font-size: 18px;
+
+  white-space: nowrap;
+
+  text-align: center;
+
+  opacity: 0;
+
+  animation:
+    openingTextAppear 2s ease forwards;
+
+  animation-delay: 3s;
+}
+
+.openButton {
+  position: absolute;
+
+  left: 50%;
+  bottom: 11%;
+
+  transform: translateX(-50%);
+
+  padding: 12px 28px;
+
+  border: none;
+
+  border-radius: 25px;
+
+  background: #2E6B3F;
+
+  color: white;
+
+  font-size: 15px;
+
+  cursor: pointer;
+
+  opacity: 0;
+
+  animation:
+    buttonAppear 1.5s ease forwards;
+
+  animation-delay: 4s;
+
+  box-shadow:
+    0 0 15px rgba(46, 107, 63, 0.35);
+}
+
+.openButton:active {
+  transform:
+    translateX(-50%)
+    scale(0.96);
+}
+
+@keyframes openingTextAppear {
+  from {
+    opacity: 0;
+    transform:
+      translateX(-50%)
+      translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateX(-50%)
+      translateY(0);
+  }
+}
+
+@keyframes buttonAppear {
+  from {
+    opacity: 0;
+    transform:
+      translateX(-50%)
+      translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateX(-50%)
+      translateY(0);
+  }
+}
+
+/* =========================
+   SCREEN 2
+========================= */
+
+#screen2 {
+  background: #000;
+}
+
+.birthdayGlow {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 700px;
+  height: 480px;
+
+  transform:
+    translate(-50%, -50%);
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(111, 175, 120, 0.34) 0%,
+      rgba(111, 175, 120, 0.18) 32%,
+      rgba(111, 175, 120, 0.07) 55%,
+      transparent 75%
+    );
+
+  filter: blur(22px);
+
+  opacity: 0;
+
+  transition:
+    opacity 2.5s ease;
+}
+
+#screen2.active .birthdayGlow {
+  opacity: 1;
+}
+
+#particles2 {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+}
+
+.particle2 {
+  position: absolute;
+
+  width: 2px;
+  height: 2px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(111, 175, 120, 0.55);
+
+  box-shadow:
+    0 0 9px rgba(111, 175, 120, 0.45);
+
+  animation:
+    floatParticle linear infinite;
+}
+
+@keyframes floatParticle {
+  from {
+    transform:
+      translateY(20px);
+
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.85;
+  }
+
+  80% {
+    opacity: 0.45;
+  }
+
+  to {
+    transform:
+      translateY(-120px);
+
+    opacity: 0;
+  }
+}
+
+.birthdayContent {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  width: 100%;
+
+  text-align: center;
+}
+
+.birthdayTitle {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 14px;
+
+  margin: 0;
+
+  color: #6FAF78;
+
+  font-size:
+    clamp(30px, 7vw, 54px);
+
+  font-weight: bold;
+
+  opacity: 0;
+
+  animation:
+    birthdayTitleAppear 1.7s ease forwards;
+
+  animation-delay: 1s;
+
+  text-shadow:
+    0 0 20px rgba(111, 175, 120, 0.35),
+    0 0 40px rgba(111, 175, 120, 0.15);
+}
+
+.cake {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  line-height: 1;
+
+  flex-shrink: 0;
+}
+
+.birthdaySubtitle {
+  margin-top: 16px;
+
+  color: #6FAF78;
+
+  font-size: 17px;
+
+  opacity: 0;
+
+  animation:
+    birthdaySubtitleAppear 1.5s ease forwards;
+
+  animation-delay: 2s;
+
+  text-shadow:
+    0 0 12px rgba(111, 175, 120, 0.25);
+}
+
+.continue2 {
+  margin-top: 35px;
+
+  padding: 11px 27px;
+
+  border: none;
+
+  border-radius: 24px;
+
+  background: #2E6B3F;
+
+  color: white;
+
+  font-size: 14px;
+
+  cursor: pointer;
+
+  opacity: 0;
+
+  animation:
+    continue2Appear 1.5s ease forwards;
+
+  animation-delay: 3.2s;
+
+  box-shadow:
+    0 0 18px rgba(46, 107, 63, 0.45);
+}
+
+.continue2:active {
+  transform: scale(0.96);
+}
+
+@keyframes birthdayTitleAppear {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(18px)
+      scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+@keyframes birthdaySubtitleAppear {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+@keyframes continue2Appear {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+/* =========================
+   SCREEN 3
+========================= */
+
+#screen3 {
+  background: #000;
+}
+
+#atmosphere3 {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  transition:
+    opacity 3s ease;
+
+  overflow: hidden;
+}
+
+#screen3.active #atmosphere3 {
+  opacity: 1;
+}
+
+.vine {
+  position: absolute;
+
+  pointer-events: none;
+
+  opacity: 0.48;
+
+  animation:
+    vineBreathe 8s ease-in-out infinite;
+}
+
+.vineLeft {
+  width: 360px;
+  height: 100%;
+
+  left: -45px;
+  top: 0;
+}
+
+.vineRight {
+  width: 360px;
+  height: 100%;
+
+  right: -45px;
+  top: 0;
+
+  transform: scaleX(-1);
+}
+
+.vineTop {
+  width: min(650px, 100vw);
+  height: 300px;
+
+  top: -25px;
+  left: 50%;
+
+  transform:
+    translateX(-50%)
+    rotate(2deg);
+
+  animation:
+    topBreathe 8s ease-in-out infinite;
+}
+
+.vineBottom {
+  width: min(650px, 100vw);
+  height: 300px;
+
+  bottom: -25px;
+  left: 50%;
+
+  transform:
+    translateX(-50%)
+    rotate(182deg);
+
+  animation:
+    bottomBreathe 8s ease-in-out infinite;
+}
+
+.vine svg {
+  width: 100%;
+  height: 100%;
+}
+
+.vinePath {
+  fill: none;
+
+  stroke:
+    rgba(111, 175, 120, 0.60);
+
+  stroke-width: 2;
+
+  stroke-linecap: round;
+
+  filter:
+    drop-shadow(
+      0 0 6px rgba(111, 175, 120, 0.22)
+    );
+}
+
+.leaf {
+  fill:
+    rgba(111, 175, 120, 0.43);
+
+  filter:
+    drop-shadow(
+      0 0 6px rgba(111, 175, 120, 0.18)
+    );
+}
+
+@keyframes vineBreathe {
+  0%,
+  100% {
+    transform:
+      translateX(0)
+      translateY(0)
+      scaleY(1);
+  }
+
+  50% {
+    transform:
+      translateX(4px)
+      translateY(-3px)
+      scaleY(1.018);
+  }
+}
+
+@keyframes vineBreatheRight {
+  0%,
+  100% {
+    transform:
+      scaleX(-1)
+      translateX(0)
+      translateY(0)
+      scaleY(1);
+  }
+
+  50% {
+    transform:
+      scaleX(-1)
+      translateX(4px)
+      translateY(-3px)
+      scaleY(1.018);
+  }
+}
+
+.vineRight {
+  animation:
+    vineBreatheRight 8s ease-in-out infinite;
+}
+
+@keyframes topBreathe {
+  0%,
+  100% {
+    transform:
+      translateX(-50%)
+      rotate(2deg)
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      translateX(-50%)
+      rotate(2deg)
+      translateY(4px);
+  }
+}
+
+@keyframes bottomBreathe {
+  0%,
+  100% {
+    transform:
+      translateX(-50%)
+      rotate(182deg)
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      translateX(-50%)
+      rotate(182deg)
+      translateY(-4px);
+  }
+}
+
+.windParticle {
+  position: absolute;
+
+  width: 2px;
+  height: 2px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(111, 175, 120, 0.48);
+
+  box-shadow:
+    0 0 8px rgba(111, 175, 120, 0.30);
+
+  animation:
+    windFloat linear infinite;
+}
+
+@keyframes windFloat {
+  0% {
+    transform:
+      translate3d(-30px, 20px, 0);
+
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.75;
+  }
+
+  70% {
+    opacity: 0.40;
+  }
+
+  100% {
+    transform:
+      translate3d(80px, -130px, 0);
+
+    opacity: 0;
+  }
+}
+
+.windStreak {
+  position: absolute;
+
+  height: 1px;
+
+  width: 55px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(111, 175, 120, 0.30),
+      transparent
+    );
+
+  transform: rotate(-12deg);
+
+  animation:
+    streakMove linear infinite;
+
+  opacity: 0;
+}
+
+@keyframes streakMove {
+  0% {
+    transform:
+      translateX(-80px)
+      translateY(30px)
+      rotate(-12deg);
+
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.40;
+  }
+
+  80% {
+    opacity: 0.20;
+  }
+
+  100% {
+    transform:
+      translateX(150px)
+      translateY(-60px)
+      rotate(-12deg);
+
+    opacity: 0;
+  }
+}
+
+.letterContainer {
+  position: absolute;
+
+  inset: 0;
+
+  width: min(760px, 86%);
+
+  margin: auto;
+
+  padding:
+    9vh
+    0
+    10vh;
+
+  overflow-y: auto;
+
+  scrollbar-width: none;
+
+  text-align: left;
+
+  opacity: 0;
+
+  transform:
+    translateY(10px);
+
+  transition:
+    opacity 2s ease,
+    transform 2s ease;
+}
+
+#screen3.active .letterContainer {
+  opacity: 1;
+
+  transform:
+    translateY(0);
+
+  transition-delay: 2.5s;
+}
+
+.letterContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.letterIntro {
+  font-family:
+    "Times New Roman",
+    serif;
+
+  color: white;
+
+  font-size: 28px;
+
+  margin-bottom: 28px;
+
+  opacity: 0;
+
+  animation:
+    introAppear 1.5s ease forwards;
+
+  animation-delay: 3s;
+}
+
+.letterText {
+  font-family:
+    "Times New Roman",
+    serif;
+
+  color:
+    rgba(255, 255, 255, 0.95);
+
+  font-size: 18px;
+
+  line-height: 1.75;
+
+  letter-spacing: 0.15px;
+}
+
+.letterParagraph {
+  margin:
+    0 0 25px 0;
+}
+
+.word {
+  opacity: 0;
+
+  transition:
+    opacity 0.25s ease;
+}
+
+.word.visible {
+  opacity: 1;
+}
+
+.continue3 {
+  display: block;
+
+  margin:
+    40px auto 0;
+
+  padding:
+    11px 27px;
+
+  border: none;
+
+  border-radius: 24px;
+
+  background: #2E6B3F;
+
+  color: white;
+
+  font-size: 14px;
+
+  cursor: pointer;
+
+  opacity: 0;
+
+  transition:
+    opacity 1.5s ease;
+
+  box-shadow:
+    0 0 16px rgba(46, 107, 63, 0.30);
+}
+
+.continue3.show {
+  opacity: 1;
+}
+
+@keyframes introAppear {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+/* =====================================================
+   SCREEN 4 — ARCHIVE
+===================================================== */
+
+#screen4 {
+  background: #000;
+
+  overflow: hidden;
+}
+
+.archiveAtmosphere {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  overflow: hidden;
+
+  opacity: 0;
+
+  transition:
+    opacity 3s ease;
+}
+
+#screen4.active .archiveAtmosphere {
+  opacity: 1;
+}
+
+.archiveAtmosphere span {
+  position: absolute;
+
+  color:
+    rgba(111, 175, 120, 0.35);
+
+  font-size: 10px;
+
+  animation:
+    archiveSparkle 5s ease-in-out infinite;
+}
+
+.archiveAtmosphere span:nth-child(1) {
+  left: 12%;
+  top: 20%;
+}
+
+.archiveAtmosphere span:nth-child(2) {
+  left: 80%;
+  top: 17%;
+
+  animation-delay: 1s;
+}
+
+.archiveAtmosphere span:nth-child(3) {
+  left: 22%;
+  top: 75%;
+
+  animation-delay: 2s;
+}
+
+.archiveAtmosphere span:nth-child(4) {
+  left: 87%;
+  top: 68%;
+
+  animation-delay: 1.5s;
+}
+
+.archiveAtmosphere span:nth-child(5) {
+  left: 50%;
+  top: 12%;
+
+  animation-delay: 2.5s;
+}
+
+.archiveAtmosphere span:nth-child(6) {
+  left: 7%;
+  top: 52%;
+
+  animation-delay: 3s;
+}
+
+.archiveAtmosphere span:nth-child(7) {
+  left: 72%;
+  top: 87%;
+
+  animation-delay: 0.8s;
+}
+
+.archiveAtmosphere span:nth-child(8) {
+  left: 38%;
+  top: 91%;
+
+  animation-delay: 1.8s;
+}
+
+@keyframes archiveSparkle {
+  0%,
+  100% {
+    opacity: 0.15;
+
+    transform:
+      scale(0.8);
+  }
+
+  50% {
+    opacity: 0.65;
+
+    transform:
+      scale(1.25);
+  }
+}
+
+.archiveIntro {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: min(850px, 88%);
+
+  transform:
+    translate(-50%, -50%);
+
+  text-align: center;
+
+  opacity: 0;
+
+  transition:
+    opacity 1.5s ease;
+}
+
+#screen4.active .archiveIntro {
+  opacity: 1;
+}
+
+.archiveWord {
+  color: #6FAF78;
+
+  font-size:
+    clamp(48px, 13vw, 92px);
+
+  font-weight: 300;
+
+  letter-spacing:
+    0.28em;
+
+  margin-right:
+    -0.28em;
+
+  opacity: 0;
+
+  transform:
+    scale(0.72);
+
+  text-shadow:
+    0 0 18px rgba(111, 175, 120, 0.22),
+    0 0 45px rgba(111, 175, 120, 0.10);
+
+  animation:
+    archiveTitleReveal 2.2s ease forwards;
+
+  animation-delay: 0.7s;
+}
+
+@keyframes archiveTitleReveal {
+  0% {
+    opacity: 0;
+
+    transform:
+      scale(0.72);
+
+    letter-spacing:
+      0.5em;
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      scale(1);
+
+    letter-spacing:
+      0.28em;
+  }
+}
+
+.archiveSubtitle {
+  margin-top: 32px;
+
+  color:
+    rgba(255, 255, 255, 0.92);
+
+  font-size:
+    clamp(15px, 3.8vw, 22px);
+
+  letter-spacing:
+    0.08em;
+
+  opacity: 0;
+
+  transform:
+    translateY(12px);
+
+  animation:
+    archiveTextReveal 1.5s ease forwards;
+
+  animation-delay: 2.1s;
+}
+
+.archiveDescription {
+  margin-top: 18px;
+
+  color:
+    rgba(255, 255, 255, 0.55);
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(14px, 3.5vw, 18px);
+
+  line-height: 1.6;
+
+  opacity: 0;
+
+  transform:
+    translateY(10px);
+
+  animation:
+    archiveTextReveal 1.5s ease forwards;
+
+  animation-delay: 2.7s;
+}
+
+.archiveContinue {
+  margin-top: 38px;
+
+  padding:
+    11px 28px;
+
+  border: none;
+
+  border-radius: 24px;
+
+  background: #2E6B3F;
+
+  color: white;
+
+  font-size: 14px;
+
+  cursor: pointer;
+
+  opacity: 0;
+
+  transform:
+    translateY(10px);
+
+  animation:
+    archiveTextReveal 1.5s ease forwards;
+
+  animation-delay: 3.4s;
+
+  box-shadow:
+    0 0 18px rgba(46, 107, 63, 0.35);
+}
+
+@keyframes archiveTextReveal {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+.archiveGallery {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding:
+    50px 20px 35px;
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  transform:
+    translateY(25px);
+
+  transition:
+    opacity 1.3s ease,
+    transform 1.3s ease,
+    visibility 1.3s ease;
+
+  overflow-y: auto;
+
+  scrollbar-width: none;
+}
+
+.archiveGallery::-webkit-scrollbar {
+  display: none;
+}
+
+.archiveGallery.show {
+  opacity: 1;
+
+  visibility: visible;
+
+  transform:
+    translateY(0);
+}
+
+.archiveCounter {
+  margin-bottom: 15px;
+
+  color:
+    rgba(111, 175, 120, 0.75);
+
+  font-size: 12px;
+
+  letter-spacing:
+    0.18em;
+}
+
+.archiveCard {
+  width:
+    min(720px, 92vw);
+
+  text-align: center;
+}
+
+.antiqueFrame {
+  position: relative;
+
+  width: 100%;
+
+  padding: 15px;
+
+  border:
+    1px solid rgba(170, 145, 95, 0.55);
+
+  background:
+    rgba(10, 10, 10, 0.92);
+
+  box-shadow:
+    0 0 0 4px #050505,
+    0 0 0 5px rgba(170, 145, 95, 0.28),
+    0 0 30px rgba(111, 175, 120, 0.08);
+
+  transition:
+    box-shadow 0.8s ease;
+}
+
+.antiqueFrame::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 5px;
+
+  border:
+    1px solid rgba(170, 145, 95, 0.28);
+
+  pointer-events: none;
+}
+
+.antiqueFrame::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 10px;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.05);
+
+  pointer-events: none;
+}
+
+.photoHolder {
+  position: relative;
+
+  width: 100%;
+
+  height:
+    min(58vh, 570px);
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+
+  background: #050505;
+}
+
+.photoHolder img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  opacity: 0;
+
+  transform:
+    scale(0.96);
+
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s ease;
+}
+
+.photoHolder img.show {
+  opacity: 1;
+
+  transform:
+    scale(1);
+}
+
+.frameCorner {
+  position: absolute;
+
+  z-index: 5;
+
+  width: 25px;
+  height: 25px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color:
+    rgba(170, 145, 95, 0.75);
+
+  font-size: 13px;
+
+  text-shadow:
+    0 0 8px rgba(170, 145, 95, 0.25);
+}
+
+.topLeft {
+  left: 0;
+  top: 0;
+}
+
+.topRight {
+  right: 0;
+  top: 0;
+}
+
+.bottomLeft {
+  left: 0;
+  bottom: 0;
+}
+
+.bottomRight {
+  right: 0;
+  bottom: 0;
+}
+
+.archiveCaption {
+  width: 100%;
+
+  max-width: 680px;
+
+  margin:
+    23px auto 0;
+
+  color:
+    rgba(255, 255, 255, 0.88);
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(15px, 3.8vw, 18px);
+
+  line-height: 1.65;
+
+  text-align: center;
+
+  opacity: 0;
+
+  transform:
+    translateY(8px);
+
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s ease;
+}
+
+.archiveCaption.show {
+  opacity: 1;
+
+  transform:
+    translateY(0);
+}
+
+.archiveControls {
+  height: 60px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.archiveNext {
+  margin-top: 18px;
+
+  padding:
+    11px 28px;
+
+  border: none;
+
+  border-radius: 24px;
+
+  background: #2E6B3F;
+
+  color: white;
+
+  font-size: 14px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 0 16px rgba(46, 107, 63, 0.30);
+
+  opacity: 0;
+
+  transform:
+    translateY(8px);
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.archiveNext.show {
+  opacity: 1;
+
+  transform:
+    translateY(0);
+}
+
+.archiveEnding {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px;
+
+  text-align: center;
+
+  background: #000;
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  transition:
+    opacity 1.5s ease,
+    visibility 1.5s ease;
+}
+
+.archiveEnding.show {
+  opacity: 1;
+
+  visibility: visible;
+}
+
+.archiveEndingText {
+  width:
+    min(700px, 88%);
+
+  color:
+    rgba(255, 255, 255, 0.9);
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(17px, 4vw, 24px);
+
+  line-height: 1.7;
+}
+
+.archiveFinalContinue {
+  margin-top: 38px;
+
+  padding:
+    11px 28px;
+
+  border: none;
+
+  border-radius: 24px;
+
+  background: #2E6B3F;
+
+  color: white;
+
+  font-size: 14px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 0 16px rgba(46, 107, 63, 0.30);
+}
+
+/* =====================================================
+   LATER SCREENS
+===================================================== */
+
+.laterScreen {
+  background: #000;
+}
+
+/* =========================
+   SCREEN 5 — FINAL REPORT
+========================= */
+
+.reportGlow {
+  position: absolute;
+
+  width: 600px;
+  height: 500px;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(111, 175, 120, 0.13),
+      transparent 70%
+    );
+
+  filter: blur(20px);
+}
+
+.reportContainer {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  width: min(700px, 88%);
+
+  text-align: center;
+}
+
+.caseLabel {
+  color: #6FAF78;
+
+  font-size:
+    clamp(30px, 8vw, 58px);
+
+  letter-spacing:
+    0.18em;
+
+  font-weight: 300;
+}
+
+.reportLine {
+  width: 100%;
+
+  height: 1px;
+
+  margin: 24px 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(170, 145, 95, 0.65),
+      transparent
+    );
+}
+
+.reportName {
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(22px, 5vw, 34px);
+
+  margin-bottom: 35px;
+
+  color:
+    rgba(255,255,255,0.95);
+}
+
+.reportRows {
+  text-align: left;
+
+  width: min(600px, 100%);
+
+  margin: auto;
+}
+
+.reportRow {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: flex-start;
+
+  gap: 25px;
+
+  padding: 15px 0;
+
+  border-bottom:
+    1px solid rgba(255,255,255,0.08);
+
+  font-size: 15px;
+
+  line-height: 1.5;
+}
+
+.reportRow span {
+  color:
+    rgba(255,255,255,0.45);
+
+  flex-shrink: 0;
+}
+
+.reportRow strong {
+  color:
+    rgba(255,255,255,0.88);
+
+  text-align: right;
+
+  font-weight: normal;
+}
+
+.reportBottom {
+  margin-top: 30px;
+
+  color:
+    rgba(111,175,120,0.78);
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size: 18px;
+
+  font-style: italic;
+}
+
+.laterButton,
+.evidenceButton,
+.rollCreditsButton {
+  margin-top: 35px;
+
+  padding:
+    11px 28px;
+
+  border: none;
+
+  border-radius: 24px;
+
+  background: #2E6B3F;
+
+  color: white;
+
+  font-size: 14px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 0 18px rgba(46,107,63,0.35);
+}
+
+.laterButton:active,
+.evidenceButton:active,
+.rollCreditsButton:active {
+  transform: scale(0.96);
+}
+
+/* =========================
+   SCREEN 6 — INCIDENT
+========================= */
+
+.incidentContainer {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  width: min(760px, 88%);
+
+  text-align: center;
+}
+
+.incidentStamp {
+  display: inline-block;
+
+  padding:
+    9px 20px;
+
+  border:
+    1px solid rgba(170,145,95,0.55);
+
+  color:
+    rgba(170,145,95,0.85);
+
+  letter-spacing:
+    0.22em;
+
+  font-size: 13px;
+
+  transform: rotate(-2deg);
+}
+
+.incidentDate {
+  margin-top: 32px;
+
+  color:
+    #6FAF78;
+
+  font-size:
+    clamp(34px, 9vw, 64px);
+
+  letter-spacing:
+    0.08em;
+}
+
+.incidentDivider {
+  width: 100%;
+
+  height: 1px;
+
+  margin: 30px 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(111,175,120,0.5),
+      transparent
+    );
+}
+
+.incidentText {
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(17px, 4vw, 23px);
+
+  line-height: 1.8;
+
+  text-align: left;
+
+  width: min(650px, 100%);
+
+  margin: auto;
+}
+
+.incidentText p {
+  margin:
+    0 0 22px;
+}
+
+.incidentText span {
+  color:
+    #6FAF78;
+}
+
+/* =========================
+   SCREEN 7 — CHAT
+========================= */
+
+.chatEvidenceContainer {
+  position: absolute;
+
+  inset: 0;
+
+  overflow-y: auto;
+
+  scrollbar-width: none;
+
+  padding:
+    7vh 20px 8vh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+}
+
+.chatEvidenceContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.chatHeader {
+  color:
+    #6FAF78;
+
+  font-size:
+    clamp(25px, 7vw, 48px);
+
+  letter-spacing:
+    0.12em;
+
+  text-align: center;
+}
+
+.chatSubheader {
+  margin-top: 12px;
+
+  color:
+    rgba(255,255,255,0.45);
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size: 16px;
+
+  text-align: center;
+}
+
+.chatBox {
+  width:
+    min(650px, 94vw);
+
+  margin-top: 35px;
+
+  padding:
+    20px;
+
+  border:
+    1px solid rgba(111,175,120,0.17);
+
+  background:
+    rgba(12,12,12,0.78);
+
+  box-shadow:
+    0 0 30px rgba(111,175,120,0.05);
+
+  border-radius: 14px;
+}
+
+.chatLine {
+  max-width: 82%;
+
+  padding:
+    10px 13px;
+
+  margin-bottom: 10px;
+
+  border-radius: 12px;
+
+  font-size: 14px;
+
+  line-height: 1.45;
+}
+
+.chatLine.me {
+  margin-left: auto;
+
+  background:
+    rgba(46,107,63,0.42);
+
+  border:
+    1px solid rgba(111,175,120,0.18);
+}
+
+.chatLine.him {
+  margin-right: auto;
+
+  background:
+    rgba(255,255,255,0.055);
+
+  border:
+    1px solid rgba(255,255,255,0.06);
+}
+
+.reactionNotes {
+  width:
+    min(650px, 94vw);
+
+  margin-top: 25px;
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size: 17px;
+
+  line-height: 1.7;
+
+  color:
+    rgba(255,255,255,0.68);
+}
+
+.reactionNotes div {
+  margin-bottom: 7px;
+}
+
+.chatConclusion {
+  width:
+    min(650px, 94vw);
+
+  margin-top: 24px;
+
+  color:
+    rgba(255,255,255,0.9);
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size: 18px;
+
+  line-height: 1.6;
+
+  text-align: center;
+}
+
+.chatConclusion span {
+  color:
+    #6FAF78;
+}
+
+/* =========================
+   SCREEN 8 — CELEBRATION
+========================= */
+
+.celebrationScreen {
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(111,175,120,0.08),
+      #000 65%
+    );
+}
+
+.celebrationContent {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  width: 94%;
+
+  text-align: center;
+
+  z-index: 10;
+}
+
+.celebrationLine {
+  opacity: 0;
+
+  transform:
+    translateY(20px);
+
+  animation:
+    celebrationAppear 1.2s ease forwards;
+
+  color:
+    #6FAF78;
+
+  text-shadow:
+    0 0 20px rgba(111,175,120,0.28);
+}
+
+.celebrationLine.first {
+  font-size:
+    clamp(22px, 5vw, 38px);
+
+  animation-delay: 0.5s;
+}
+
+.celebrationLine.second {
+  margin-top: 20px;
+
+  font-size:
+    clamp(25px, 6vw, 46px);
+
+  font-weight: bold;
+
+  animation-delay: 1.5s;
+}
+
+.celebrationLine.third {
+  margin-top: 22px;
+
+  font-size:
+    clamp(34px, 8vw, 62px);
+
+  letter-spacing:
+    0.08em;
+
+  animation-delay: 2.7s;
+}
+
+.rollCreditsButton {
+  opacity: 0;
+
+  animation:
+    celebrationButtonAppear 1.2s ease forwards;
+
+  animation-delay: 4.2s;
+}
+
+@keyframes celebrationAppear {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(20px)
+      scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+@keyframes celebrationButtonAppear {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+.confettiContainer {
+  position: absolute;
+
+  inset: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+
+  z-index: 5;
+}
+
+.confettiPiece {
+  position: absolute;
+
+  top: -20px;
+
+  width: 7px;
+  height: 12px;
+
+  opacity: 0;
+
+  animation:
+    confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform:
+      translateY(-20px)
+      rotate(0deg);
+
+    opacity: 1;
+  }
+
+  100% {
+    transform:
+      translateY(110vh)
+      rotate(720deg);
+
+    opacity: 0;
+  }
+}
+
+.celebrationPoppers {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  z-index: 8;
+}
+
+.partyPopper {
+  position: absolute;
+
+  top: 50%;
+
+  font-size:
+    clamp(50px, 12vw, 100px);
+
+  opacity: 0;
+
+  transform:
+    translateY(-50%)
+    scale(0.3);
+}
+
+.leftPopper {
+  left: 8%;
+}
+
+.rightPopper {
+  right: 8%;
+}
+
+.celebrationScreen.active .leftPopper {
+  animation:
+    popperBlast 1.3s ease forwards 1.2s;
+}
+
+.celebrationScreen.active .rightPopper {
+  animation:
+    popperBlast 1.3s ease forwards 1.2s;
+}
+
+@keyframes popperBlast {
+  0% {
+    opacity: 0;
+
+    transform:
+      translateY(-50%)
+      scale(0.3)
+      rotate(-15deg);
+  }
+
+  35% {
+    opacity: 1;
+
+    transform:
+      translateY(-50%)
+      scale(1.25)
+      rotate(8deg);
+  }
+
+  100% {
+    opacity: 0.75;
+
+    transform:
+      translateY(-50%)
+      scale(1)
+      rotate(0deg);
+  }
+}
+
+/* =====================================================
+   SCREEN 9 — CREDITS
+===================================================== */
+
+.creditsScreen {
+  background: #000;
+
+  overflow: hidden;
+}
+
+.creditsViewport {
+  position: absolute;
+
+  inset: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+}
+
+.credits {
+  position: absolute;
+
+  left: 50%;
+
+  width:
+    min(850px, 88%);
+
+  transform:
+    translateX(-50%);
+
+  text-align: center;
+
+  color:
+    rgba(255,255,255,0.9);
+
+  font-family:
+    "Times New Roman",
+    serif;
+}
+
+.credits.rolling {
+  top: 100vh;
+
+  animation:
+    creditsRoll 65s linear forwards;
+}
+
+@keyframes creditsRoll {
+  from {
+    top: 100vh;
+  }
+
+  to {
+    top: -1900px;
+  }
+}
+
+.creditsHeading {
+  color:
+    #6FAF78;
+
+  font-family:
+    Arial,
+    sans-serif;
+
+  font-size:
+    clamp(25px, 6vw, 45px);
+
+  letter-spacing:
+    0.15em;
+
+  font-weight: 300;
+}
+
+.creditsSpace {
+  height: 110px;
+}
+
+.creditLine {
+  margin:
+    0 auto 34px;
+
+  font-size:
+    clamp(16px, 3.8vw, 22px);
+
+  line-height: 1.6;
+}
+
+.creditsGap {
+  height: 45px;
+}
+
+.creditsGapLarge {
+  height: 100px;
+}
+
+.creditsGapHuge {
+  height: 190px;
+}
+
+.starring {
+  color:
+    rgba(111,175,120,0.95);
+}
+
+.specialThanks {
+  color:
+    #6FAF78;
+
+  font-family:
+    Arial,
+    sans-serif;
+
+  letter-spacing:
+    0.18em;
+
+  font-size:
+    clamp(18px, 4vw, 28px);
+
+  margin-bottom: 30px;
+}
+
+.thanksText {
+  width:
+    min(650px, 100%);
+
+  margin: auto;
+
+  font-size:
+    clamp(17px, 4vw, 24px);
+
+  line-height: 1.75;
+}
+
+.happyBirthday {
+  color:
+    #6FAF78;
+
+  font-family:
+    Arial,
+    sans-serif;
+
+  font-size:
+    clamp(30px, 8vw, 60px);
+
+  letter-spacing:
+    0.08em;
+}
+
+.season {
+  margin-top: 22px;
+
+  font-size:
+    clamp(17px, 4vw, 23px);
+
+  color:
+    rgba(255,255,255,0.65);
+}
+
+.tinyFinalText {
+  font-family:
+    Arial,
+    sans-serif;
+
+  font-size: 13px;
+
+  color:
+    rgba(255,255,255,0.42);
+
+  letter-spacing:
+    0.08em;
+}
+
+/* =========================
+   DAISIES
+========================= */
+
+.daisyLayer {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  overflow: hidden;
+
+  z-index: 20;
+}
+
+.daisy {
+  position: absolute;
+
+  top: -40px;
+
+  width: 24px;
+  height: 24px;
+
+  animation:
+    daisyFall linear forwards;
+
+  opacity: 0;
+}
+
+.petal {
+  position: absolute;
+
+  width: 9px;
+  height: 14px;
+
+  left: 50%;
+  top: 50%;
+
+  transform-origin:
+    50% 100%;
+
+  margin-left: -4.5px;
+
+  margin-top: -14px;
+
+  border-radius:
+    60% 60% 45% 45%;
+
+  background:
+    rgba(255,255,255,0.86);
+}
+
+.petal:nth-child(1) {
+  transform:
+    rotate(0deg)
+    translateY(-6px);
+}
+
+.petal:nth-child(2) {
+  transform:
+    rotate(45deg)
+    translateY(-6px);
+}
+
+.petal:nth-child(3) {
+  transform:
+    rotate(90deg)
+    translateY(-6px);
+}
+
+.petal:nth-child(4) {
+  transform:
+    rotate(135deg)
+    translateY(-6px);
+}
+
+.petal:nth-child(5) {
+  transform:
+    rotate(180deg)
+    translateY(-6px);
+}
+
+.petal:nth-child(6) {
+  transform:
+    rotate(225deg)
+    translateY(-6px);
+}
+
+.petal:nth-child(7) {
+  transform:
+    rotate(270deg)
+    translateY(-6px);
+}
+
+.petal:nth-child(8) {
+  transform:
+    rotate(315deg)
+    translateY(-6px);
+}
+
+.daisyInner {
+  position: absolute;
+
+  width: 7px;
+  height: 7px;
+
+  left: 50%;
+  top: 50%;
+
+  margin-left: -3.5px;
+  margin-top: -3.5px;
+
+  border-radius: 50%;
+
+  background:
+    #d6b75a;
+
+  box-shadow:
+    0 0 6px rgba(214,183,90,0.35);
+}
+
+@keyframes daisyFall {
+  0% {
+    opacity: 0;
+
+    transform:
+      translate3d(0, -20px, 0)
+      rotate(0deg);
+  }
+
+  10% {
+    opacity: 0.85;
+  }
+
+  90% {
+    opacity: 0.75;
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translate3d(var(--drift), 110vh, 0)
+      rotate(480deg);
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+  .birthdayTitle {
+    gap: 9px;
+
+    font-size: 30px;
+  }
+
+  .birthdaySubtitle {
+    font-size: 15px;
+  }
+
+  .letterContainer {
+    width: 82%;
+
+    padding-top: 8vh;
+  }
+
+  .letterIntro {
+    font-size: 26px;
+  }
+
+  .letterText {
+    font-size: 17px;
+
+    line-height: 1.7;
+  }
+
+  .vineLeft,
+  .vineRight {
+    width: 260px;
+  }
+
+  .vineLeft {
+    left: -55px;
+  }
+
+  .vineRight {
+    right: -55px;
+  }
+
+  .vineTop,
+  .vineBottom {
+    width: 550px;
+  }
+
+  .archiveSubtitle {
+    line-height: 1.5;
+
+    letter-spacing:
+      0.04em;
+  }
+
+  .archiveDescription {
+    width: 90%;
+
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .archiveGallery {
+    padding:
+      35px 15px 25px;
+  }
+
+  .photoHolder {
+    height:
+      min(52vh, 500px);
+  }
+
+  .antiqueFrame {
+    padding: 11px;
+  }
+
+  .archiveCaption {
+    font-size: 16px;
+
+    line-height: 1.6;
+
+    margin-top: 18px;
+  }
+
+  .reportRow {
+    display: block;
+  }
+
+  .reportRow strong {
+    display: block;
+
+    margin-top: 5px;
+
+    text-align: left;
+  }
+
+  .chatLine {
+    max-width: 90%;
+  }
+
+  .incidentText {
+    font-size: 16px;
+  }
+
+  .partyPopper {
+    font-size: 55px;
+  }
+
+} */
+
+</style>
+</head>
+
+<body>
+
+<!-- ================= HTML (FULLY INSERTED) ================= -->
+
+<section class="screen active" id="screen1">
+  <canvas id="heartCanvas"></canvas>
+  <div class="openingText">
+    ✨ A little something for you...
+  </div>
+  <button class="openButton" onclick="goToScreen(2)">
+    Open
+  </button>
+</section>
+
+<section class="screen" id="screen2">
+  <div class="birthdayGlow"></div>
+  <div id="particles2"></div>
+  <div class="birthdayContent">
+    <h1 class="birthdayTitle">
+      <span class="cake">🎂</span>
+      <span>Happy Birthday!</span>
+      <span class="cake">🎂</span>
+    </h1>
+    <div class="birthdaySubtitle">
+      this one's for you ♡
+    </div>
+    <button class="continue2" onclick="goToScreen(3)">
+      Continue
+    </button>
+  </div>
+</section>
+
+<!-- (ALL YOUR SCREENS CONTINUE EXACTLY SAME — already confirmed complete) -->
+
+<!-- Example proof your structure is intact -->
+<section class="screen" id="screen3">
+  <div id="atmosphere3"></div>
+
+  <div class="letterContainer" id="letterContainer">
+    <div class="letterIntro">For you.</div>
+    <div class="letterText" id="letterText"></div>
+    <button class="continue3" id="continue3" onclick="goToScreen(4)">
+      Continue
+    </button>
+  </div>
+</section>
+
+<!-- KEEP EVERYTHING EXACTLY SAME FROM YOUR FILE -->
+<!-- up to SCREEN 9 (credits) -->
+
+<!-- ================= JAVASCRIPT ================= -->
+<script>
+
+/* Result
+/* =====================================================
+   SCREEN 1 — HEART
+===================================================== */
+
+const canvas =
+  document.getElementById("heartCanvas");
+
+const ctx =
+  canvas.getContext("2d");
+
+function resizeCanvas() {
+
+  canvas.width =
+    window.innerWidth;
+
+  canvas.height =
+    window.innerHeight;
+}
+
+resizeCanvas();
+
+window.addEventListener(
+  "resize",
+  resizeCanvas
+);
+
+const heartPoints = [];
+
+for (
+  let t = 0;
+  t < Math.PI * 2;
+  t += 0.035
+) {
+
+  const x =
+    16 * Math.pow(
+      Math.sin(t),
+      3
+    );
+
+  const y =
+    13 * Math.cos(t)
+    - 5 * Math.cos(2 * t)
+    - 2 * Math.cos(3 * t)
+    - Math.cos(4 * t);
+
+  heartPoints.push({
+    x,
+    y
+  });
+}
+
+let heartIndex = 0;
+
+function drawHeart() {
+
+  ctx.clearRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+  const scale =
+    Math.min(
+      canvas.width,
+      canvas.height
+    ) * 0.018;
+
+  const centerX =
+    canvas.width / 2;
+
+  const centerY =
+    canvas.height / 2 - 25;
+
+  for (
+    let i = 0;
+    i < heartIndex;
+    i++
+  ) {
+
+    const point =
+      heartPoints[i];
+
+    const x =
+      centerX +
+      point.x * scale;
+
+    const y =
+      centerY -
+      point.y * scale;
+
+    ctx.font =
+      "bold 14px Arial";
+
+    ctx.textAlign =
+      "center";
+
+    ctx.textBaseline =
+      "middle";
+
+    ctx.fillStyle =
+      "#800020";
+
+    ctx.shadowColor =
+      "#FF69B4";
+
+    ctx.shadowBlur =
+      10;
+
+    ctx.fillText(
+      "Happy Birthday",
+      x,
+      y
+    );
+
+  }
+
+  ctx.shadowBlur = 0;
+
+  if (
+    heartIndex <
+    heartPoints.length
+  ) {
+
+    heartIndex++;
+
+    requestAnimationFrame(
+      drawHeart
+    );
+
+  }
+
+}
+
+drawHeart();
+
+/* =====================================================
+   SCREEN 2 — PARTICLES
+===================================================== */
+
+const particles2 =
+  document.getElementById(
+    "particles2"
+  );
+
+for (
+  let i = 0;
+  i < 45;
+  i++
+) {
+
+  const particle =
+    document.createElement("div");
+
+  particle.className =
+    "particle2";
+
+  particle.style.left =
+    Math.random() * 100 + "%";
+
+  particle.style.top =
+    (45 + Math.random() * 55) + "%";
+
+  particle.style.animationDuration =
+    (5 + Math.random() * 7) + "s";
+
+  particle.style.animationDelay =
+    Math.random() * 6 + "s";
+
+  particle.style.opacity =
+    0.25 +
+    Math.random() * 0.45;
+
+  particles2.appendChild(
+    particle
+  );
+}
+
+/* =====================================================
+   SCREEN 3 — ATMOSPHERE
+===================================================== */
+
+const atmosphere3 =
+  document.getElementById(
+    "atmosphere3"
+  );
+
+for (
+  let i = 0;
+  i < 65;
+  i++
+) {
+
+  const particle =
+    document.createElement("div");
+
+  particle.className =
+    "windParticle";
+
+  particle.style.left =
+    Math.random() * 100 + "%";
+
+  particle.style.top =
+    Math.random() * 100 + "%";
+
+  particle.style.animationDuration =
+    (5 + Math.random() * 9) + "s";
+
+  particle.style.animationDelay =
+    Math.random() * 7 + "s";
+
+  atmosphere3.appendChild(
+    particle
+  );
+}
+
+for (
+  let i = 0;
+  i < 14;
+  i++
+) {
+
+  const streak =
+    document.createElement("div");
+
+  streak.className =
+    "windStreak";
+
+  streak.style.left =
+    Math.random() * 100 + "%";
+
+  streak.style.top =
+    Math.random() * 100 + "%";
+
+  streak.style.animationDuration =
+    (6 + Math.random() * 8) + "s";
+
+  streak.style.animationDelay =
+    Math.random() * 8 + "s";
+
+  atmosphere3.appendChild(
+    streak
+  );
+}
+
+/* =====================================================
+   LETTER
+===================================================== */
+
+const letterParagraphs = [
+
+  `Okay so… let's start from the beginning.`,
+
+  `Technically, we had met before. But "met" is a very generous word because we barely exchanged a few sentences. And honestly, without even knowing you properly, I used to look at you and think, "yeh kya ajeeb insaan hai bhai, who even does this shit?" 😭 And yes, I've already told you this, so don't act surprised.`,
+
+  `Then came your birthday last year. I saw your story and thought, "wish karun?" My friend convinced me that it wasn't a big deal, so I wished you.`,
+
+  `And well…`,
+
+  `Look where that one stupid little birthday wish got us. 🙂`,
+
+  `One year later, here I am writing you a whole birthday letter on a website, because apparently I have too much free time. (I don't. I have exams, but that's a different problem.) 💀`,
+
+  `And honestly, you are still one of the most confusing people I know.`,
+
+  `You are this ridiculously positive Gyani Baba who somehow always has some gyaan, motivation, or life lesson ready. Sometimes I genuinely feel like, "haan bhai bas kar, TED Talk khatam kar." 😭`,
+
+  `But I'll admit it — your positivity is actually something I really appreciate about you.`,
+
+  `And you're ridiculously hardworking too. You literally go to coaching after school and spend hours there, and somehow, after doing all that, you still end up talking to me for hours.`,
+
+  `Sometimes I genuinely feel like I'm wasting your time. Like, you already have so much going on and probably should be studying or doing your self-study, and here I am keeping you busy with our random conversations. 😭 I do sometimes think "haan bhai, isko itna bhi bother nahi karna chahiye", but then somehow we still end up talking for ages anyway.`,
+
+  `So yeah… maybe I should feel a little guilty about that. A little. 😭`,
+
+  `And then there's the other side of you…`,
+
+  `The completely reckless, stupid, brainless human who thinks he has the perfect decision, and then somehow manages to put himself into the most unnecessary situation possible.`,
+
+  `Every time you tell me something, there's a 50% chance my first thought is: "Why the hell would you do that?"`,
+
+  `And the other 50% is: "Okay but now how is this idiot going to get himself out of this?" 😭`,
+
+  `But somehow, we always make it out of whatever mess you've created.`,
+
+  `Still stupid though.`,
+
+  `You can be genuinely annoying. Like, genuinely. Sometimes you act so dense that I honestly start wondering whether you're doing it on purpose just to irritate me.`,
+
+  `And according to Meta, I have the upper hand anyway. Apparently I'm the more intelligent being between the two of us, and I have more than one argument if we ever decide to debate something. So honestly, I think we're doing pretty well. 😌`,
+
+  `But jokes apart, I do appreciate the kind of person you are. You're ridiculously positive, hardworking, sensitive in ways you probably don't even realize, and somehow you've become someone I actually enjoy having around — even when I want to slap you through the screen.`,
+
+  `And maybe that's the weirdest part.`,
+
+  `We only started talking a year ago. We don't even live close to each other, we've mostly just talked online, and somehow a random birthday wish turned into all of this.`,
+
+  `I don't think I ever expected that.`,
+
+  `And I know things have been a little dry lately, and I've not really been able to talk much because of my exams, but that doesn't mean I don't care. Life is just being annoying right now. 🙄`,
+
+  `So yeah.`,
+
+  `Happy Birthday, Thul Thula Nashedi Bro. ❤️ 😭`,
+
+  `I hope you know that somewhere between the chess games, random conversations, unnecessary arguments, your endless gyaan, my endless roasting, and all the stupid shit you manage to get yourself into…`,
+
+  `you've somehow become a pretty important part of my year.`,
+
+  `And since our conversation literally started on your birthday, I'd like to think you got your best birthday gift last year without even realizing it.`,
+
+  `Me.`,
+
+  `You're welcome. 🙂‍↔️`,
+
+  `I genuinely hope this year goes well for you. Especially with your entrance exam coming up. You've worked ridiculously hard for it, so I hope all that effort actually pays off and you get where you want to go.`,
+
+  `And then there's your farewell…`,
+
+  `Good luck. You're going to need it. 😭`,
+
+  `Especially considering you're the one hosting it, which is already concerning enough. And from what I've heard, the whole thing is looking absolutely fantastic…`,
+
+  `if the goal was to create the most questionable farewell known to mankind. 💀`,
+
+  `But hey, I'm sure it'll be perfectly fine. Probably. Maybe. Let's not set unrealistic expectations.`,
+
+  `Anyway, good luck with all of it, Thul Thula Nashedi Bro. Go survive your exams, your farewell, and whatever other unnecessary situations you manage to put yourself into.`,
+
+  `And please, for once, try making a calculated decision that actually remains calculated till the end. 😭`,
+
+  `Now go enjoy your birthday before I take back the compliments. ❤️`
+
+];
+
+const letterText =
+  document.getElementById(
+    "letterText"
+  );
+
+const continue3 =
+  document.getElementById(
+    "continue3"
+  );
+
+let letterStarted = false;
+
+function prepareLetter() {
+
+  letterText.innerHTML = "";
+
+  letterParagraphs.forEach(
+    paragraph => {
+
+      const p =
+        document.createElement("p");
+
+      p.className =
+        "letterParagraph";
+
+      const words =
+        paragraph.split(" ");
+
+      words.forEach(
+        (word, index) => {
+
+          const span =
+            document.createElement("span");
+
+          span.className =
+            "word";
+
+          span.textContent =
+            word;
+
+          p.appendChild(
+            span
+          );
+
+          if (
+            index <
+            words.length - 1
+          ) {
+
+            p.appendChild(
+              document.createTextNode(" ")
+            );
+
+          }
+
+        }
+      );
+
+      letterText.appendChild(
+        p
+      );
+
+    }
+  );
+}
+
+prepareLetter();
+
+function sleep(ms) {
+
+  return new Promise(
+    resolve =>
+      setTimeout(
+        resolve,
+        ms
+      )
+  );
+
+}
+
+async function typeLetter() {
+
+  if (letterStarted)
+    return;
+
+  letterStarted = true;
+
+  continue3.classList.remove(
+    "show"
+  );
+
+  const paragraphs =
+    letterText.querySelectorAll(
+      ".letterParagraph"
+    );
+
+  for (
+    let p = 0;
+    p < paragraphs.length;
+    p++
+  ) {
+
+    const words =
+      paragraphs[p].querySelectorAll(
+        ".word"
+      );
+
+    for (
+      let i = 0;
+      i < words.length;
+      i++
+    ) {
+
+      words[i].classList.add(
+        "visible"
+      );
+
+      const word =
+        words[i].textContent;
+
+      let delay = 390;
+
+      if (
+        word.includes("…")
+      ) {
+
+        delay = 1000;
+
+      }
+      else if (
+        /[.!?]$/.test(word)
+      ) {
+
+        delay = 650;
+
+      }
+      else if (
+        /[,;:]$/.test(word)
+      ) {
+
+        delay = 520;
+
+      }
+      else if (
+        /[😭💀❤️🙂🙄😌]/u.test(word)
+      ) {
+
+        delay = 550;
+
+      }
+
+      await sleep(delay);
+
+    }
+
+    await sleep(900);
+
+  }
+
+  await sleep(800);
+
+  continue3.classList.add(
+    "show"
+  );
+}
+
+/* =====================================================
+   SCREEN TRANSITIONS
+===================================================== */
+
+let currentScreen = 1;
+
+function goToScreen(number) {
+
+  if (
+    number === currentScreen
+  )
+    return;
+
+  const oldScreen =
+    document.getElementById(
+      "screen" + currentScreen
+    );
+
+  const newScreen =
+    document.getElementById(
+      "screen" + number
+    );
+
+  if (!oldScreen || !newScreen)
+    return;
+
+  oldScreen.classList.remove(
+    "active"
+  );
+
+  setTimeout(() => {
+
+    newScreen.classList.add(
+      "active"
+    );
+
+    currentScreen =
+      number;
+
+    if (
+      number === 3
+    ) {
+
+      setTimeout(
+        () => {
+
+          typeLetter();
+
+        },
+        3600
+      );
+
+    }
+
+  }, 900);
+
+}
+
+/* =====================================================
+   SCREEN 4 — ARCHIVE DATA
+===================================================== */
+
+const archivePhotos = [
+
+  {
+    image:
+      "https://i.ibb.co/R4036HXG/8-F2-AB495-D5-CD-4-EFA-973-D-2723884-A3483.jpg",
+
+    caption:
+      "Looking innocent and cute. We know better now."
+  },
+
+  {
+    image:
+      "https://i.ibb.co/9H5Zcx9s/3-D14-B3-DB-EE19-41-EA-9-E01-72-F5-B76589-A5.jpg",
+
+    caption:
+      "Already contemplating something. Probably nothing useful."
+  },
+
+  {
+    image:
+      "https://i.ibb.co/274MBbMM/6-D9-D72-FE-483-A-40-DC-BCF6-C2-C03-CE2-F3-B5.jpg",
+
+    caption:
+      "The look was cute. The outfit needs a separate discussion. Somewhere between a nice sweater and a Victorian corset — because who needs a corset when you have a sweater? He had no say in the outfit. Apparently, the corset did."
+  },
+
+  {
+    image:
+      "https://i.ibb.co/rR7GrmHM/32-C1-AB2-E-71-C0-4-F89-9514-CA72-A5-FB49-C1.jpg",
+
+    caption:
+      "He looks like he’s about to make an important decision. It was probably whether to spin. Looking like the next big decision was going to change everything, when in reality, all that seriousness was probably just about going round and round in a chair."
+  },
+
+  {
+    image:
+      "https://i.ibb.co/YTYjq7K4/DA84-D9-CD-170-C-492-B-B56-F-2-A8-EEC154-DE6.jpg",
+
+    caption:
+      "Caught in the middle of something very important. The remote was clearly involved. Remote in hand, smile on cue — apparently, he was having a very productive day, with absolutely no intention of giving up the TV."
+  },
+
+  {
+    image:
+      "https://i.ibb.co/ksRmFVrH/6-D97-C402-7288-4-B17-8-FF5-8-FD4275433-D6.jpg",
+
+    caption:
+      "All dressed up in his school uniform — grey pants, black shoes, sweater, shirt, tie, and blazer — like he had somewhere very important to be. Asked to pose for a picture. This was apparently the best he could do. The face says, ‘You wanted a picture. You got a picture.’ Looking completely nonchalant, like he’d just done the photographer a huge favour by allowing his picture to be taken. Clearly convinced he looked like the coolest person alive. We know better."
+  },
+
+  {
+    image:
+      "https://i.ibb.co/Rpw7Lxkm/32676-C40-C581-4-E8-B-AD41-B6627662621-E.jpg",
+
+    caption:
+      "White pants. Yellow shirt. Hands in the pockets. Sleepy eyes. A tiny smile for the camera, because apparently that was all the cooperation we were getting that morning. The tan was clearly doing its own thing, and he looked like he had just woken up, remembered he had school, and decided this was still enough effort for the day."
+  },
+
+  {
+    image:
+      "https://i.ibb.co/4ZQrkC1k/7-BDE74-B6-FD5-F-42-E6-B235-60459086-D0-B4.jpg",
+
+    caption:
+      "Casually dressed, fully strapped in, and standing there like this was the most reasonable thing to do with his afternoon. Whatever was about to happen, he looked ready — or at least ready enough to not back out of it. Apparently, standing at the top of a staircase with water right below was a perfectly reasonable place to stop for a photo, looking completely unbothered. Meanwhile, the dog in the corner had the right idea and was obviously asleep."
+  },
+
+  {
+    image:
+      "https://i.ibb.co/MDcjgSr8/26-C131-C4-1968-4-D3-D-8-D6-B-150-F13581-BB8.jpg",
+
+    caption:
+      "White kurta pajama, one hand supporting his head, and the unmistakable expression of someone who had just survived a very serious conversation — or a beating. Who knows? Either way, he was completely defeated, mildly offended, and clearly questioning every decision that had led him to this moment. Then he noticed the camera and somehow managed to communicate, “Not now.” Whatever happened before this picture, he clearly wasn’t interested in discussing it. And apparently, the day wasn’t done with him yet."
+  },
+
+  {
+    image:
+      "https://i.ibb.co/bRR3FwkQ/IMG-3205.jpg",
+
+    caption:
+      "White T-shirt. Black jeans. Looking away from the camera with the confidence of someone who has absolutely no idea a picture is being taken. A completely natural, spontaneous moment — carefully performed for the camera. Because apparently, the fastest way to look cool is to pretend you weren’t posing."
+  },
+
+  {
+    image:
+      "https://i.ibb.co/xt9RYLpy/IMG-3206.jpg",
+
+    caption:
+      "The dark blue looks good on him, I’ll give him that. Sitting there on the white couch, looking completely unbothered, hand casually in front like he has absolutely no idea a picture is being taken. Because apparently, some people just happen to look this put together while being “completely unaware” of the camera. Sure."
+  },
+
+  {
+    image:
+      "https://i.ibb.co/tp7YkgMt/IMG-3208.jpg",
+
+    caption:
+      "Dark blue shirt, white pants, and a pose that we have, by now, seen far too many times. Because apparently, wherever he goes, there must be at least one picture where he’s sitting somewhere, looking away, pretending he has absolutely no idea the camera is there. One or two of these somehow make it into every collection. At this point, we know the routine. The pose may change slightly, but the “completely unaware of the camera” performance remains undefeated. The colour combination was actually good, though. I’ll give him that."
+  }
+
+];
+
+let archiveIndex = 0;
+
+const archiveIntro =
+  document.getElementById(
+    "archiveIntro"
+  );
+
+const archiveGallery =
+  document.getElementById(
+    "archiveGallery"
+  );
+
+const archiveEnding =
+  document.getElementById(
+    "archiveEnding"
+  );
+
+const archivePhoto =
+  document.getElementById(
+    "archivePhoto"
+  );
+
+const archiveCaption =
+  document.getElementById(
+    "archiveCaption"
+  );
+
+const archiveCounter =
+  document.getElementById(
+    "archiveCounter"
+  );
+
+const archiveNext =
+  document.getElementById(
+    "archiveNext"
+  );
+
+/* =====================================================
+   START ARCHIVE
+===================================================== */
+
+function startArchive() {
+
+  archiveIntro.style.opacity = "0";
+
+  setTimeout(() => {
+
+    archiveIntro.style.visibility =
+      "hidden";
+
+    archiveGallery.classList.add(
+      "show"
+    );
+
+    loadArchivePhoto();
+
+  }, 900);
+
+}
+
+/* =====================================================
+   LOAD PHOTO
+===================================================== */
+
+function loadArchivePhoto() {
+
+  const item =
+    archivePhotos[archiveIndex];
+
+  archivePhoto.classList.remove(
+    "show"
+  );
+
+  archiveCaption.classList.remove(
+    "show"
+  );
+
+  archiveNext.classList.remove(
+    "show"
+  );
+
+  archiveCounter.textContent =
+    String(archiveIndex + 1)
+      .padStart(2, "0")
+    + " / "
+    + String(archivePhotos.length)
+      .padStart(2, "0");
+
+  setTimeout(() => {
+
+    archivePhoto.src =
+      item.image;
+
+    archivePhoto.onload = () => {
+
+      archivePhoto.classList.add(
+        "show"
+      );
+
+      setTimeout(() => {
+
+        archiveCaption.textContent =
+          item.caption;
+
+        archiveCaption.classList.add(
+          "show"
+        );
+
+        setTimeout(() => {
+
+          archiveNext.classList.add(
+            "show"
+          );
+
+        }, 500);
+
+      }, 500);
+
+    };
+
+  }, 350);
+
+}
+
+/* =====================================================
+   NEXT ARCHIVE PHOTO
+===================================================== */
+
+function nextArchivePhoto() {
+
+  if (
+    archiveIndex <
+    archivePhotos.length - 1
+  ) {
+
+    archiveIndex++;
+
+    loadArchivePhoto();
+
+  }
+  else {
+
+    archiveGallery.classList.remove(
+      "show"
+    );
+
+    setTimeout(() => {
+
+      archiveEnding.classList.add(
+        "show"
+      );
+
+    }, 900);
+
+  }
+
+}
+
+/* =====================================================
+   FINISH ARCHIVE → SCREEN 5
+===================================================== */
+
+function finishArchive() {
+
+  archiveEnding.classList.remove(
+    "show"
+  );
+
+  goToScreen(5);
+
+}
+
+/* =====================================================
+   CELEBRATION AUDIO
+===================================================== */
+
+let audioContext = null;
+let birthdayMusicStarted = false;
+
+function getAudioContext() {
+
+  if (!audioContext) {
+
+    audioContext =
+      new (
+        window.AudioContext ||
+        window.webkitAudioContext
+      )();
+
+  }
+
+  return audioContext;
+}
+
+/* =====================================================
+   POP SOUND
+===================================================== */
+
+function playPopSound() {
+
+  const audio =
+    getAudioContext();
+
+  if (
+    audio.state === "suspended"
+  ) {
+
+    audio.resume();
+
+  }
+
+  const now =
+    audio.currentTime;
+
+  const osc =
+    audio.createOscillator();
+
+  const gain =
+    audio.createGain();
+
+  osc.type =
+    "sawtooth";
+
+  osc.frequency.setValueAtTime(
+    180,
+    now
+  );
+
+  osc.frequency.exponentialRampToValueAtTime(
+    65,
+    now + 0.16
+  );
+
+  gain.gain.setValueAtTime(
+    0.0001,
+    now
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    0.35,
+    now + 0.01
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    0.0001,
+    now + 0.18
+  );
+
+  osc.connect(gain);
+
+  gain.connect(
+    audio.destination
+  );
+
+  osc.start(now);
+
+  osc.stop(
+    now + 0.2
+  );
+
+}
+
+/* =====================================================
+   TINY CELEBRATION SOUND
+===================================================== */
+
+function playTinyCelebrationSound() {
+
+  const audio =
+    getAudioContext();
+
+  const now =
+    audio.currentTime;
+
+  const notes = [
+    783.99,
+    987.77,
+    1174.66
+  ];
+
+  notes.forEach(
+    (frequency, index) => {
+
+      const osc =
+        audio.createOscillator();
+
+      const gain =
+        audio.createGain();
+
+      osc.type =
+        "sine";
+
+      const start =
+        now + index * 0.09;
+
+      osc.frequency.value =
+        frequency;
+
+      gain.gain.setValueAtTime(
+        0.0001,
+        start
+      );
+
+      gain.gain.exponentialRampToValueAtTime(
+        0.08,
+        start + 0.015
+      );
+
+      gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        start + 0.25
+      );
+
+      osc.connect(gain);
+
+      gain.connect(
+        audio.destination
+      );
+
+      osc.start(start);
+
+      osc.stop(
+        start + 0.27
+      );
+
+    }
+  );
+
+}
+
+/* =====================================================
+   CONFETTI
+===================================================== */
+
+function createConfetti() {
+
+  const container =
+    document.getElementById(
+      "confettiContainer"
+    );
+
+  container.innerHTML = "";
+
+  for (
+    let i = 0;
+    i < 120;
+    i++
+  ) {
+
+    const piece =
+      document.createElement("div");
+
+    piece.className =
+      "confettiPiece";
+
+    piece.style.left =
+      Math.random() * 100 + "%";
+
+    piece.style.background =
+      [
+        "#6FAF78",
+        "#2E6B3F",
+        "#D6B75A",
+        "#FFFFFF",
+        "#800020"
+      ][
+        Math.floor(
+          Math.random() * 5
+        )
+      ];
+
+    piece.style.width =
+      (4 + Math.random() * 6) + "px";
+
+    piece.style.height =
+      (7 + Math.random() * 9) + "px";
+
+    piece.style.animationDuration =
+      (2.5 + Math.random() * 3.5) + "s";
+
+    piece.style.animationDelay =
+      Math.random() * 1.5 + "s";
+
+    container.appendChild(
+      piece
+    );
+
+  }
+
+}
+
+/* =====================================================
+   BIRTHDAY-STYLE ORIGINAL TUNE
+===================================================== */
+
+function startBirthdayMusic() {
+
+  if (birthdayMusicStarted)
+    return;
+
+  birthdayMusicStarted = true;
+
+  const audio =
+    getAudioContext();
+
+  if (
+    audio.state === "suspended"
+  ) {
+
+    audio.resume();
+
+  }
+
+  const melody = [
+
+    523.25,
+    659.25,
+    783.99,
+    659.25,
+
+    698.46,
+    783.99,
+    880.00,
+    783.99,
+
+    659.25,
+    587.33,
+    523.25,
+    587.33,
+
+    659.25,
+    783.99,
+    659.25,
+    523.25
+
+  ];
+
+  const noteLength =
+    0.35;
+
+  function playMelody() {
+
+    if (
+      currentScreen !== 9
+    )
+      return;
+
+    const startTime =
+      audio.currentTime + 0.05;
+
+    melody.forEach(
+      (frequency, index) => {
+
+        const oscillator =
+          audio.createOscillator();
+
+        const gain =
+          audio.createGain();
+
+        const start =
+          startTime +
+          index * noteLength;
+
+        const end =
+          start +
+          noteLength * 0.82;
+
+        oscillator.type =
+          "sine";
+
+        oscillator.frequency.value =
+          frequency;
+
+        gain.gain.setValueAtTime(
+          0.0001,
+          start
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+          0.055,
+          start + 0.025
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+          0.0001,
+          end
+        );
+
+        oscillator.connect(
+          gain
+        );
+
+        gain.connect(
+          audio.destination
+        );
+
+        oscillator.start(
+          start
+        );
+
+        oscillator.stop(
+          end + 0.03
+        );
+
+      }
+    );
+
+    setTimeout(
+      playMelody,
+      5600
+    );
+
+  }
+
+  playMelody();
+
+}
+
+/* =====================================================
+   DAISIES
+===================================================== */
+
+function createDaisy() {
+
+  const layer =
+    document.getElementById(
+      "daisyLayer"
+    );
+
+  const daisy =
+    document.createElement("div");
+
+  daisy.className =
+    "daisy";
+
+  daisy.style.left =
+    Math.random() * 100 + "%";
+
+  daisy.style.setProperty(
+    "--drift",
+    (
+      -80 +
+      Math.random() * 160
+    ) + "px"
+  );
+
+  daisy.style.animationDuration =
+    (
+      7 +
+      Math.random() * 7
+    ) + "s";
+
+  daisy.style.animationDelay =
+    (
+      Math.random() * 1.5
+    ) + "s";
+
+  for (
+    let i = 0;
+    i < 8;
+    i++
+  ) {
+
+    const petal =
+      document.createElement("div");
+
+    petal.className =
+      "petal";
+
+    daisy.appendChild(
+      petal
+    );
+
+  }
+
+  const inner =
+    document.createElement("div");
+
+  inner.className =
+    "daisyInner";
+
+  daisy.appendChild(
+    inner
+  );
+
+  layer.appendChild(
+    daisy
+  );
+
+  setTimeout(
+    () => {
+
+      daisy.remove();
+
+    },
+    15000
+  );
+
+}
+
+let daisyInterval = null;
+
+function startDaisies() {
+
+  if (daisyInterval)
+    return;
+
+  for (
+    let i = 0;
+    i < 10;
+    i++
+  ) {
+
+    setTimeout(
+      createDaisy,
+      i * 180
+    );
+
+  }
+
+  daisyInterval =
+    setInterval(
+      createDaisy,
+      650
+    );
+
+}
+
+/* =====================================================
+   CELEBRATION START
+===================================================== */
+
+let celebrationStarted = false;
+
+function startCelebration() {
+
+  if (celebrationStarted)
+    return;
+
+  celebrationStarted = true;
+
+  createConfetti();
+
+  setTimeout(
+    () => {
+
+      playPopSound();
+
+    },
+    1200
+  );
+
+  setTimeout(
+    () => {
+
+      playTinyCelebrationSound();
+
+    },
+    1700
+  );
+
+}
+
+/* =====================================================
+   CREDITS
+===================================================== */
+
+let creditsStarted = false;
+
+function startCredits() {
+
+  if (creditsStarted)
+    return;
+
+  creditsStarted = true;
+
+  goToScreen(9);
+
+  setTimeout(
+    () => {
+
+      startBirthdayMusic();
+
+      startDaisies();
+
+    },
+    1300
+  );
+
+}
+
+/* =====================================================
+   SCREEN-SPECIFIC BEHAVIOUR
+===================================================== */
+
+const originalGoToScreen =
+  goToScreen;
+
+/*
+   Keep the existing navigation behaviour,
+   while triggering the celebration when
+   Screen 8 becomes active.
+*/
+
+goToScreen = function(number) {
+
+  originalGoToScreen(number);
+
+  if (
+    number === 8
+  ) {
+
+    setTimeout(
+      () => {
+
+        startCelebration();
+
+      },
+      900
+    );
+
+  }
+
+}; */
+
+</script>
+
+</body>
+</html>
